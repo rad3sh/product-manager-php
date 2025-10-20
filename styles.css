@@ -1,0 +1,255 @@
+/* Import Geist font from Vercel CDN */
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;700&display=swap");
+
+:root {
+  --bg-dark: #18181b;
+  --bg-darker: #131316;
+  --primary: #6366f1;
+  --accent: #f472b6;
+  --text: #f4f4f5;
+  --text-muted: #a1a1aa;
+  --sidebar-width: 60px;
+  --radius: 4px;
+  --transition: 0.2s;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text);
+  font-family: "Geist", Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  background: var(--bg-darker);
+  color: var(--text-muted);
+  padding: 1rem 2rem;
+  border-radius: var(--radius);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+footer {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+nav {
+  height: 100vh;
+  width: var(--sidebar-width);
+  background: var(--bg-darker);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-top-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  margin: 2rem 0;
+}
+
+nav ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--text-muted);
+  background: none;
+  border-radius: 50%;
+  transition: background var(--transition), color var(--transition);
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+main {
+  margin-left: calc(var(--sidebar-width) + 2rem);
+  padding: 2rem;
+  flex: 1;
+  background: var(--bg-dark);
+  border-radius: var(--radius);
+  min-height: 90vh;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Geist", Arial, sans-serif;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+form {
+  background: var(--bg-darker);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-muted);
+}
+
+input,
+select,
+button {
+  font-family: "Geist", Arial, sans-serif;
+  font-size: 1rem;
+  border-radius: var(--radius);
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input,
+select {
+  background: #232336;
+  color: var(--text);
+  border: 1px solid #232336;
+  transition: border var(--transition);
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border: 1px solid var(--primary);
+}
+
+button {
+  background: var(--primary);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 300;
+  transition: background var(--transition);
+}
+
+button:hover {
+  background: var(--accent);
+}
+
+@media (max-width: 700px) {
+  nav {
+    width: 100vw;
+    height: 60px;
+    flex-direction: row;
+    padding-top: 0;
+    padding-left: 2rem;
+    border-radius: 0 0 var(--radius) var(--radius);
+    top: auto;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
+  }
+  nav ul {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+  }
+  main {
+    margin-left: 0;
+    margin-top: 4rem;
+    padding: 1rem;
+  }
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  background: var(--bg-darker);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.styled-table th {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+}
+
+.styled-table tr:nth-child(even) {
+  background: #232336;
+}
+
+.styled-table tr:hover {
+  background: #353557;
+}
+
+.action-btn {
+  display: inline-block;
+  padding: 0.3em 0.6em;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-right: 0.3em;
+  font-size: 1.1em;
+  transition: background 0.2s, color 0.2s;
+}
+
+.action-btn.edit {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.action-btn.delete {
+  background: #ef4444;
+  color: #fff;
+}
+
+.action-btn.edit:hover {
+  background: #2563eb;
+}
+
+.action-btn.delete:hover {
+  background: #b91c1c;
+}
+
+.empty-table,
+.error-msg {
+  color: var(--text-muted);
+  padding: 1rem 0;
+  text-align: center;
+}
