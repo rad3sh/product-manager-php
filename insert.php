@@ -1,36 +1,61 @@
 <?php
 require_once 'connection.php';
+// ...existing code...
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $produto_id = intval($_POST['produto_id'] ?? 0);
+$produto_id_raw = trim($_POST['produto_id'] ?? '');
+
+// se preenchido, exige exatamente 6 dígitos
+if ($produto_id_raw !== '' && !preg_match('/^\d{6}$/', $produto_id_raw)) {
+    echo 'ID inválido: se informado, deve conter exatamente 6 dígitos.';
+    exit;
+}
+$hasId = ($produto_id_raw !== '');
+$produto_id = $hasId ? (int)$produto_id_raw : null;
+
+    // novo campo obrigatório
+    $nome = trim($_POST['nome'] ?? '');
+
     $referencia = trim($_POST['referencia'] ?? '');
     $quantidade = intval($_POST['quantidade'] ?? 0);
     $local = trim($_POST['local'] ?? '');
 
-    if ($produto_id <= 0 || $referencia === '' || $local === '') {
-        echo 'Preencha todos os campos corretamente.<br>';
+    // validação: agora nome, referencia e local são obrigatórios
+    if ($nome === '' || $referencia === '' || $local === '') {
+        echo 'Preencha todos os campos obrigatórios: nome, referência e local.<br>';
         exit;
     }
 
-    // Ajuste o nome da tabela/colunas conforme seu esquema (aqui uso "produtos" e coluna "produto_id")
-    $sql = 'INSERT INTO produtos (id, referencia, quantidade, `local`) 
-            VALUES (:produto_id, :referencia, :quantidade, :local)';
+    // Monta INSERT condicional: com ou sem id (para permitir auto-increment)
+    if ($hasId) {
+        $sql = 'INSERT INTO produtos (id, nome, referencia, quantidade, `local`) VALUES (:id, :nome, :referencia, :quantidade, :local)';
+    } else {
+        $sql = 'INSERT INTO produtos (nome, referencia, quantidade, `local`) VALUES (:nome, :referencia, :quantidade, :local)';
+    }
+
     $stmt = $pdo->prepare($sql);
 
     try {
-        $stmt->execute([
-            ':produto_id' => $produto_id,
+        $params = [
+            ':nome' => $nome,
             ':referencia' => $referencia,
             ':quantidade' => $quantidade,
             ':local' => $local
-        ]);
+        ];
+        if ($hasId) {
+            $params[':id'] = $produto_id;
+        }
+
+        $stmt->execute($params);
+
+        // ...existing code...
         header('Location: produtos_cadastrar.php');
         exit;
     } catch (PDOException $e) {
         if ($e->getCode() == 23000) { // violação de UNIQUE / chave primária
             echo 'Já existe um produto com este ID.<br>';
         } else {
-            echo 'Erro ao inserir produto: ' . $e->getMessage() . '<br>';
+            echo 'Erro ao inserir produto: ' . htmlspecialchars($e->getMessage()) . '<br>';
         }
     }
 }

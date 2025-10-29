@@ -98,7 +98,7 @@ main {
   flex: 1;
   background: var(--bg-dark);
   border-radius: var(--radius);
-  min-height: 90vh;
+  min-height: 80vh-100px;
 }
 
 h1,
@@ -116,6 +116,7 @@ form {
   border-radius: var(--radius);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   margin-bottom: 2rem;
+  margin: 12px 0;
 }
 
 label {
@@ -132,13 +133,13 @@ button {
   border-radius: var(--radius);
   border: none;
   padding: 0.5rem 1rem;
-  margin-bottom: 1rem;
   width: 100%;
   box-sizing: border-box;
 }
 
 input,
 select {
+  background-color: #232336;
   background: #232336;
   color: var(--text);
   border: 1px solid #232336;
@@ -252,4 +253,222 @@ button:hover {
   color: var(--text-muted);
   padding: 1rem 0;
   text-align: center;
+}
+
+/* Estiliza a lista de opções para parecer com .styled-table */
+.options .actions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background: var(--bg-darker);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.options .actions li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: background var(--transition);
+  color: var(--text);
+  background: transparent;
+}
+
+/* remover linha de separação no último item */
+.options .actions li:last-child {
+  border-bottom: 0;
+}
+
+/* hover igual ao .styled-table */
+.options .actions li:hover {
+  background: #353557; /* mesmo tom do hover da tabela */
+}
+
+/* texto principal e secundário */
+.options .actions a,
+.options .actions .label {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+
+/* ícone + texto mais visíveis */
+.options .actions .label {
+  font-weight: 600;
+  font-size: 1rem;
+  gap: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* botão pequeno à direita com aparência de action-btn */
+.options .actions .open-btn {
+  font-size: 0.95rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-left: 0.5rem;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  transition: background var(--transition), color var(--transition);
+}
+
+/* variações de cor para ações (manter consistência com action-btn) */
+.options .actions .open-btn.edit {
+  background: #3b82f6;
+  color: #fff;
+}
+.options .actions .open-btn.delete {
+  background: #ef4444;
+  color: #fff;
+}
+.options .actions .open-btn.secondary {
+  background: #2d2d2d;
+  color: #fff;
+}
+.options .actions .open-btn.audit {
+  background: #6b5bd3;
+  color: #fff;
+}
+
+.options .actions .open-btn:hover {
+  filter: brightness(0.95);
+}
+
+/* Responsividade: empilha texto e botão em telas pequenas */
+@media (max-width: 700px) {
+  .options .actions li {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+}
+
+/* ...existing code... */
+
+/* botão "Voltar" usado nas páginas */
+.btn-back {
+  display: block;
+  padding: 0.45rem 0.75rem;
+  border-radius: 6px;
+  max-width: 80px;
+  text-decoration: none;
+  font-weight: 600;
+  line-height: 1;
+  transition: background 0.15s ease, transform 0.07s ease;
+  cursor: pointer;
+}
+
+/* se já usa .action-btn.secondary, mantenha consistência; ajuste cores se necessário */
+.btn-back.action-btn.secondary {
+  background: #2d2d2d; /* mesmo tom secundário */
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.btn-back:hover {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+}
+
+/* alternativa com ícone pequeno */
+.btn-back::before {
+  content: "← ";
+  margin-right: 0.25rem;
+}
+
+.search-bar {
+  margin: 12px 0;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.pagination {
+  margin-top: 12px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.page-link {
+  padding: 6px 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+}
+.page-link.current {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* input com botão limpar (X) dentro */
+.input-with-clear {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+}
+.input-with-clear input {
+  width: 100%;
+  padding-right: 40px; /* espaço para o botão X */
+  box-sizing: border-box;
+}
+.clear-input {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  font-size: 0.95rem;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 0;
+}
+.clear-input:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+}
+.clear-input:focus {
+  outline: 2px solid rgba(0, 0, 0, 0.12);
+}
+
+/* pequenas regras para as abas de seleção (usa variáveis já presentes em styles.css) */
+.search-tabs {
+  display: inline-flex;
+  gap: 8px;
+  margin: 8px 0;
+}
+/* botão de aba (mantém aparência anterior) */
+.search-tabs button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 600;
+}
+.search-tabs button.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: transparent;
+}
+@media (max-width: 700px) {
+  .search-tabs {
+    width: 100%;
+  }
+  .search-tabs button {
+    flex: 1 1 auto;
+  }
 }
