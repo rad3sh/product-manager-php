@@ -84,19 +84,19 @@ if ($q !== '') {
             <?php
             if ($q !== '') {
                 if ($q_by === 'id') {
-                    if (empty($rows)){ 
-                        echo "<div class='msg'>Nenhum produto encontrado para esse Id.</div>";
-                    } elseif ($produto === null && $searchError === '') {
-                        echo "<div class='msg'>Produto não encontrado.</div>";
-                    } elseif ($produto) {
-                        echo "<table class='styled-table' aria-label='Produto'>";
-                        echo "<thead><tr><th>Campo</th><th>Valor</th></tr></thead><tbody>";
-                        $fields = ['id','nome','referencia','quantidade','local'];
+ if ($searchError) {
+                       echo "<div class='msg error'>".htmlspecialchars($searchError)."</div>";
+                   } elseif ($produto) {
+                       echo "<table class='styled-table' aria-label='Produto'>";
+                       echo "<thead><tr><th>Campo</th><th>Valor</th></tr></thead><tbody>";
+                       $fields = ['id','nome','referencia','quantidade','local'];
                         foreach ($fields as $col) {
                             $val = isset($produto[$col]) ? $produto[$col] : '';
                             echo "<tr><td>".htmlspecialchars($col)."</td><td>".htmlspecialchars((string)$val)."</td></tr>";
                         }
                         echo "</tbody></table>";
+                    } else {
+                        echo "<div class='msg'>Produto não encontrado.</div>";
                     }
                 } else {
                     if (empty($rows)) {

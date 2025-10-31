@@ -1,9 +1,9 @@
 <?php
 $dsn = '';
-$host = '';
+$host = '167.234.236.40';
 $port = '3306';
-$user = '';
-$password = '';
+$user = 'panico4420';
+$password = '*Fera123456';
 $database = 'db_estoque';
 
 $dsn = "mysql:host=$host;dbname=$database;charset=utf8mb4";
